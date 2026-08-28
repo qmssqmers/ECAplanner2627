@@ -162,25 +162,6 @@
             <!-- Dynamically populated -->
           </div>
         </div>
-        <!-- 4. Daily View / 單日查詢 -->
-<div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm flex flex-col mt-6">
-  <div class="flex items-center gap-2 pb-3 mb-4 border-b border-slate-100">
-    <i data-lucide="search-check" class="w-5 h-5 text-emerald-600"></i>
-    <h3 class="font-bold text-base text-slate-900">4. 單日活動與場地查詢</h3>
-  </div>
-  <div class="flex flex-col sm:flex-row gap-4 items-start sm:items-center">
-    <div class="flex-shrink-0">
-      <label class="block text-xs font-semibold text-slate-600 mb-1.5">選擇欲查詢之日期</label>
-      <input type="date" id="daily-query-date" onchange="renderDailyView()" class="px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 text-sm font-medium text-slate-700">
-    </div>
-    <p class="text-xs text-slate-400 mt-2 sm:mt-6">系統會即時過濾並顯示該日期的所有活動與場地安排。</p>
-  </div>
-  <div class="mt-4 bg-slate-50 border border-slate-100 rounded-xl p-4 min-h-[150px]">
-    <div id="daily-view-results" class="flex flex-col gap-2">
-      <div class="text-center py-6 text-slate-400 text-xs flex flex-col items-center gap-2"><i data-lucide="calendar-search" class="w-8 h-8 text-slate-300"></i> 請選擇日期進行查詢。</div>
-    </div>
-  </div>
-</div>
       </section>
 
       <!-- Middle & Right Combined Main Planning Workspace (8 cols) -->
@@ -299,22 +280,7 @@
               </tbody>
             </table>
           </div>
-<!-- Actions Grid Panel -->
-<div class="bg-slate-50 p-4 rounded-xl border border-slate-100 flex flex-col md:flex-row justify-between items-center gap-4">
-  <div class="text-xs text-slate-500">
-    <p class="font-medium text-slate-700">資料匯入與匯出選項</p>
-    <p class="mt-0.5">系統支援將舊版 CSV 匯入，及多格式進階匯出。</p>
-  </div>
-  <div class="flex flex-wrap gap-2 w-full md:w-auto justify-end">
-    <input type="file" id="csv-upload" accept=".csv" class="hidden" onchange="handleCSVImport(event)">
-    <button onclick="document.getElementById('csv-upload').click()" class="px-4 py-2 bg-white hover:bg-slate-100 text-slate-700 border border-slate-300 font-bold text-sm rounded-lg transition-all shadow-sm flex items-center justify-center gap-1.5">
-      <i data-lucide="upload" class="w-4 h-4"></i> 匯入舊版資料(CSV)
-    </button>
-    <button onclick="openExportModal()" class="px-5 py-2 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-bold text-sm rounded-lg transition-all shadow-md flex items-center justify-center gap-1.5">
-      <i data-lucide="download" class="w-4 h-4"></i> 自訂與匯出資料
-    </button>
-  </div>
-</div>
+
           <!-- Actions Grid Panel -->
           <div class="bg-slate-50 p-4 rounded-xl border border-slate-100 flex flex-col md:flex-row justify-between items-center gap-4">
             <div class="text-xs text-slate-500">
@@ -338,28 +304,7 @@
     </div>
 
   </main>
-<!-- Export Modal -->
-<div id="export-modal" class="hidden fixed inset-0 bg-slate-900/60 z-50 flex items-center justify-center backdrop-blur-sm">
-  <div class="bg-white rounded-2xl shadow-2xl w-full max-w-2xl max-h-[90vh] flex flex-col overflow-hidden">
-    <div class="px-6 py-4 border-b border-slate-100 flex justify-between items-center bg-slate-50">
-      <h3 class="text-lg font-bold text-slate-800 flex items-center gap-2"><i data-lucide="settings-2" class="w-5 h-5 text-blue-600"></i> 匯出選項與格式設定</h3>
-      <button onclick="closeExportModal()" class="text-slate-400 hover:text-slate-600"><i data-lucide="x" class="w-5 h-5"></i></button>
-    </div>
-    <div class="p-6 flex-1 overflow-y-auto scrollbar-thin">
-      <p class="text-sm text-slate-600 mb-4 font-medium">請勾選您欲匯出的活動項目。所有匯出檔案將以「活動名稱」優先、「日期」次要進行雙重排序。</p>
-      <div class="flex gap-3 mb-4">
-        <button onclick="toggleAllExportCheckboxes(true)" class="text-xs bg-slate-100 hover:bg-slate-200 text-slate-700 px-3 py-1.5 rounded-md font-semibold transition-colors">全選</button>
-        <button onclick="toggleAllExportCheckboxes(false)" class="text-xs bg-slate-100 hover:bg-slate-200 text-slate-700 px-3 py-1.5 rounded-md font-semibold transition-colors">取消全選</button>
-      </div>
-      <div id="export-checkbox-list" class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-6"></div>
-    </div>
-    <div class="px-6 py-4 bg-slate-50 border-t border-slate-100 flex flex-wrap gap-3 justify-end">
-      <button onclick="exportSelectedData('sheets')" class="px-4 py-2 bg-emerald-100 hover:bg-emerald-200 text-emerald-800 border border-emerald-300 font-bold text-sm rounded-lg transition-all flex items-center gap-1.5"><i data-lucide="copy" class="w-4 h-4"></i> 複製為 Google Sheet</button>
-      <button onclick="exportSelectedData('csv')" class="px-4 py-2 bg-white hover:bg-slate-100 text-slate-700 border border-slate-300 font-bold text-sm rounded-lg transition-all flex items-center gap-1.5"><i data-lucide="file-spreadsheet" class="w-4 h-4"></i> 匯出 CSV</button>
-      <button onclick="exportSelectedData('word')" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-bold text-sm rounded-lg transition-all flex items-center gap-1.5"><i data-lucide="file-text" class="w-4 h-4"></i> 匯出 Word 檔</button>
-    </div>
-  </div>
-</div>
+
   <footer class="bg-slate-100 border-t border-slate-200 mt-12 py-6 text-center text-xs text-slate-400">
     <div class="max-w-7xl mx-auto px-4">
       <p>© 2026 港澳信義會慕德中學。系統已轉移至 Firebase Firestore 雲端即時串接資料庫系統。</p>
@@ -959,143 +904,7 @@
       document.body.removeChild(link);
       showToast(`成功下載完整 ${ext.toUpperCase()} 檔案！`, "success");
     }
-// ==========================================
-// 1. 單日查詢功能 (Daily View)
-// ==========================================
-window.renderDailyView = function() {
-  const qDate = document.getElementById('daily-query-date').value;
-  const container = document.getElementById('daily-view-results');
-  if(!qDate) { container.innerHTML = `<div class="text-center py-6 text-slate-400 text-xs">請選擇日期進行查詢。</div>`; return; }
 
-  const dailyActivities = [];
-  Object.keys(scheduledDates).forEach(eca => {
-    if(scheduledDates[eca][qDate]) {
-      dailyActivities.push({ ecaName: eca, ...scheduledDates[eca][qDate] });
-    }
-  });
-
-  if (dailyActivities.length === 0) {
-    container.innerHTML = `<div class="text-center py-6 text-slate-500 text-sm font-medium">該日 (${qDate}) 暫無任何活動安排。</div>`;
-    return;
-  }
-
-  let html = `<h4 class="font-bold text-sm text-slate-800 mb-2 border-b border-slate-200 pb-2">${qDate} 共有 ${dailyActivities.length} 項活動</h4>`;
-  dailyActivities.forEach(act => {
-    html += `
-      <div class="bg-white p-3 rounded-lg border border-slate-200 flex flex-col sm:flex-row sm:items-center justify-between gap-2 shadow-sm mb-2">
-        <div>
-          <p class="font-bold text-blue-700 text-sm">${act.ecaName}</p>
-          <p class="text-xs text-slate-500 mt-1">${act.timeNotes}</p>
-        </div>
-        <div class="text-left sm:text-right">
-          <p class="text-xs font-semibold text-slate-700 bg-slate-100 px-2 py-1 rounded inline-block mb-1"><i data-lucide="map-pin" class="w-3 h-3 inline mr-1"></i>${act.customNotes || '未填寫場地'}</p>
-          <p class="text-[10px] text-slate-400">負責人: ${act.teacher}</p>
-        </div>
-      </div>
-    `;
-  });
-  container.innerHTML = html;
-  lucide.createIcons();
-}
-
-// ==========================================
-// 2. CSV 匯入功能 (CSV Import)
-// ==========================================
-import { writeBatch } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js"; // 確保開頭 import 有 writeBatch
-
-window.handleCSVImport = function(event) {
-  const file = event.target.files[0];
-  if (!file) return;
-  const reader = new FileReader();
-  reader.onload = async function(e) {
-    const text = e.target.result;
-    const rows = text.split('\n').map(row => {
-      let fields = []; let field = ''; let inQuotes = false;
-      for(let i=0; i<row.length; i++) {
-        if(row[i]==='"') inQuotes = !inQuotes;
-        else if(row[i]===',' && !inQuotes) { fields.push(field); field=''; }
-        else if(row[i]!=='\r') field+=row[i];
-      }
-      fields.push(field); return fields;
-    }).filter(r => r.length > 2 && r[0].includes('(')); // 過濾標題行
-
-    if(rows.length === 0) { showToast("未能辨識有效資料列", "error"); return; }
-
-    const importedData = {};
-    rows.forEach(row => {
-      const ecaName = row[0].trim();
-      const date = row[1].trim();
-      if(!importedData[ecaName]) importedData[ecaName] = {};
-      importedData[ecaName][date] = { timeNotes: row[2].trim(), customNotes: row[3].trim(), teacher: row[4].trim() };
-    });
-
-    const batch = writeBatch(db);
-    Object.keys(importedData).forEach(eca => {
-      batch.set(doc(db, 'artifacts', appId, 'public', 'data', 'eca_plans', eca), { 
-        ecaName: eca, dates: importedData[eca], lastUpdatedBy: "CSV 匯入", updatedAt: new Date().toISOString() 
-      }, { merge: true });
-    });
-
-    try {
-      await batch.commit(); 
-      showToast(`成功匯入並更新 ${Object.keys(importedData).length} 個活動項目！`, "success");
-      document.getElementById('csv-upload').value = '';
-    } catch(err) { showToast("匯入失敗", "error"); }
-  };
-  reader.readAsText(file);
-}
-
-// ==========================================
-// 3. 自訂匯出與 Google Sheet 複製
-// ==========================================
-window.openExportModal = function() {
-  const activeEcas = Object.keys(scheduledDates);
-  if(activeEcas.length === 0) { showToast("目前沒有可匯出的資料！", "warning"); return; }
-  
-  const listContainer = document.getElementById('export-checkbox-list'); 
-  listContainer.innerHTML = '';
-  activeEcas.forEach(eca => {
-    listContainer.innerHTML += `
-      <label class="flex items-center gap-2 p-2 bg-white border border-slate-200 rounded cursor-pointer hover:bg-slate-50 transition-colors">
-        <input type="checkbox" value="${eca}" class="export-eca-cb w-4 h-4 text-blue-600 rounded border-slate-300 focus:ring-blue-500" checked>
-        <span class="text-xs font-semibold text-slate-700">${eca}</span>
-      </label>
-    `;
-  });
-  document.getElementById('export-modal').classList.remove('hidden');
-}
-window.closeExportModal = () => document.getElementById('export-modal').classList.add('hidden');
-window.toggleAllExportCheckboxes = (check) => document.querySelectorAll('.export-eca-cb').forEach(cb => cb.checked = check);
-
-window.exportSelectedData = function(type) {
-  const selectedEcas = Array.from(document.querySelectorAll('.export-eca-cb:checked')).map(cb => cb.value);
-  if(selectedEcas.length === 0) { showToast("請至少選擇一個活動項目", "warning"); return; }
-
-  const rows = [];
-  selectedEcas.forEach(eca => {
-    Object.keys(scheduledDates[eca]).forEach(dateStr => {
-      rows.push({ ecaName: eca, date: dateStr, ...scheduledDates[eca][dateStr] });
-    });
-  });
-  
-  // 雙重排序：活動項目名稱優先 -> 日期其次
-  rows.sort((a, b) => a.ecaName.localeCompare(b.ecaName, 'zh-HK') || new Date(a.date) - new Date(b.date));
-
-  if (type === 'sheets') {
-    let tsv = "活動項目\t安排日期\t活動時間安排\t自定義備註\t負責同工\n";
-    rows.forEach(r => tsv += `${r.ecaName}\t${r.date}\t${r.timeNotes}\t${r.customNotes}\t${r.teacher}\n`);
-    navigator.clipboard.writeText(tsv).then(() => {
-      showToast("已複製 TSV 格式！請直接前往 Google Sheet 貼上 (Ctrl+V)", "success");
-      closeExportModal();
-    });
-  } 
-  else if (type === 'csv') {
-    let csvContent = "\ufeff活動項目,安排日期,活動時間安排,自定義備註,負責同工\n";
-    rows.forEach(r => csvContent += `"${r.ecaName}","${r.date}","${r.timeNotes}","${r.customNotes}","${r.teacher}"\n`);
-    triggerDownload(new Blob([csvContent], { type: 'text/csv;charset=utf-8;' }), 'csv');
-    closeExportModal();
-  }
-}
     function showToast(message, type = "success") {
       const container = document.getElementById('toast-container');
       if (!container) return;
